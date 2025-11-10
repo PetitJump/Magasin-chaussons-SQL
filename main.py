@@ -22,11 +22,12 @@ cur.execute("""
             FROM Chaussons
             WHERE marque = ? AND stock > 0
         """, (resultat[marque],))
+
 res = [x[0] for x in cur.fetchall()]
 print("Voici les tailles dispo :")
 print(res)
-print("")
 
+print("")
 taille = int(input("Quel taille voulez vous acheter ? "))
 
 cur.execute("""
@@ -36,11 +37,12 @@ cur.execute("""
         """, (resultat[marque], taille))
 
 res = cur.fetchall()
+
 cur.execute("""
             UPDATE Chaussons
             SET stock = ?
             WHERE marque = ? AND taille = ?
         """, (res[0][0] - 1, resultat[marque], taille))
 
-print("Fini")
+print("Le stock a été mis a jour !")
 db.close()
